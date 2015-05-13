@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone</title>
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/underscore/underscore.js"></script>
+	<script src="../bower_components/backbone/backbone.js"></script>
+	<script type="text/template" data-name="templateName">
+		<h1>Hello <%= who %></h1>
+		<div>
+			<button class="icon">open</button>
+		</div>
+	</script>
+</head>
+<body>
+	<div id="main"></div>
+	<script>
+		var templates = {};
+		var $sources = $('script[type="text/template"]');
+		$sources.each(function(index, el) {
+			var $el = $(el);
+			templates[$el.data('name')] = _.template($el.html());
+		});
+
+		function open() {
+			alert('open')
+		}
+
+		var AppView = Backbone.View.extend({
+			el: $('#main'),
+			template: templates['templateName'],
+			initialize: function() {
+			},
+			render: function() {
+				this.$el.html(this.template({who: 'World!'}));
+			},
+			events: {
+				'click .icon': open
+			}
+		})
+		var appView = new AppView();
+		appView.render();
+
+		var AppRouter = Backbone.Router.extend({
+			routes: {
+				'*h': 'defaultRoute'
+			}
+		});
+		var appRouter = new AppRouter();
+		appRouter.on('route:defaultRoute', function(actions) {
+			console.log(actions);
+		});
+	</script>
+</body>
+</html>

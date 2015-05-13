@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promise对象</title>
+	<meta name="Content-Type" content="text/html">
+</head>
+<body>
+	<script>
+		var Promise = function() {
+			this.state = 'pending';
+			this.thenables = [];
+		};
+
+		Promise.prototype.resolve = function(value) {
+			if (this.state != 'pending') {
+				return;
+			}
+			this.state = 'fulfilled';
+			this.value = value;
+			this._handleThen();
+			return this;
+		};
+
+		Promise.prototype.reject = function(reason) {
+			if (this.state != 'pending') {
+				return;
+			}
+			this.state = 'rejected';
+			this._handleThen();
+			return this;
+		};
+
+		Promise.prototype.then = function(onFulfilled, onRejected) {
+			var thenable = {};
+			if (typeof onFulfilled == 'function') {
+				thenable.fulfill = onFulfilled;
+			}
+
+			if (typeof onRejected == 'function') {
+				thenable.reject = onRejected;
+			}
+
+			if (this.state != 'pending') {
+				// setImmediate(function() {
+					this._handleThen();
+				// }.bind(this));
+			}
+
+			thenable.promise = new Promise();
+			this.thenables.push(thenable);
+
+			return thenable.promise;
+		};
+
+		Promise.prototype._handleThen = function() {
+			if (this.state === 'pending') {
+				return;
+			}
+			if (this.thenables.length) {
+				for (var i = 0; i < this.thenables.length; i++) {
+					var thenPromise = this.thenables[i].promise,
+						returnedVal;
+					try {
+						switch (this.state) {
+							case 'fulfilled':
+								if (this.thenables[i].fulfill) {
+									returnedVal = this.thenables[i].fulfill(this.value);
+								} else {
+									thenPromise.resolve(this.value);
+								}
+								break;
+							case 'rejected':
+								if (this.thenables[i].reject) {
+									returnedVal = this.thenables[i].reject(this.reason);
+								} else {
+									thenPromise.reject(this.reason);
+								}
+								break;
+						}
+						if (returnedVal === null) {
+							this.thenables[i].promise.resolve(returnedVal);
+						} else if (returnedVal instanceof Promise || typeof returnedVal.then === 'function') {
+							returnedVal.then(thenPromise.resolve.bind(thenPromise), thenPromise.reject.bind(thenPromise));
+						} else {
+							this.thenables[i].promise.resolve(returnedVal);
+						}
+					} catch(e) {
+						thenPromise.reject(e);
+					}
+				}
+				this.thenables = {};
+			}
+		};
+
+		function search(term) {
+			var url = 'http://10.0.0.112/index.php?route=weixin/wx_api/ucenter',
+				p = new Promise(),
+				xhr = new XMLHttpRequest(),
+				result;
+			xhr.open('GET', url, true);
+			xhr.responseType = 'json';
+			xhr.onload = function(e) {
+				if (this.status === 200) {
+					// debugger;
+					result = this.response;
+					if (result.code === 500) {
+						p.resolve(result);
+					} else {
+						p.reject(result.msg);
+					}
+				}
+			};
+			xhr.onerror = function(e) {
+				p.reject(e);
+			};
+
+			xhr.send();
+			return p;
+		}
+
+		search('Hello World').then(function(v) {
+			console.log(1);
+			console.dir(v);
+		}).then(function(v) {
+			console.log(2);
+			console.log(v);
+		}, function(v) {
+			console.log('error');
+			console.log(v);
+		});
+	</script>
+</body>
+</html>

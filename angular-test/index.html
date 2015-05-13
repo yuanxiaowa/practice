@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular</title>
+	<script src="js/angular.js"></script>
+	<script src="js/app.js"></script>
+</head>
+<body>
+	<div ng-controller="IndexCtrl">
+		<form ng-submit="submit()">
+			<input type="text" ng-model="sex">
+			<button id="btn">提交</button>
+			<span>{{'you ' + sex}}</span>
+			<span>{{v}}</span>
+		</form>
+		<input type="text" ng-model="n">
+		<ul>
+			<li ng-repeat="item in items">{{item}}</li>
+		</ul>
+	</div>
+</body>
+</html>

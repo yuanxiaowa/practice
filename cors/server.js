@@ -1,9 +1,10 @@
 var http = require('http'),
 	fs = require('fs');
 http.createServer(function(req, res) {
-	for(var k in req) {
+	/*for(var k in req) {
 		console.log(k);
-	}
+	}*/
+	console.log(req.headers);
 	res.writeHead(200, {
 		'Content-Type': 'application/json',
 		'Access-Control-Allow-Origin': req.headers.origin,

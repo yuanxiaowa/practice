@@ -1,27 +1,27 @@
-import java.net.ServerSocket;
+ï»¿import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * ÏîÄ¿Ãû³Æ£ºMyWebServer
- * ÏîÄ¿ÍÅ¶Ó£º
- * ÎÄ¼şÃû£ºServer.java
+ * é¡¹ç›®åç§°ï¼šMyWebServer
+ * é¡¹ç›®å›¢é˜Ÿï¼š
+ * æ–‡ä»¶åï¼šServer.java
  * 
- * ÃèÊö£ºÔİÎŞ
- * ËùÔÚ°ü£º
- * ÈÕÆÚ£º2015Äê5ÔÂ13ÈÕ
- * ´´½¨ÈË£ºAdministrator
+ * æè¿°ï¼šæš‚æ— 
+ * æ‰€åœ¨åŒ…ï¼š
+ * æ—¥æœŸï¼š2015å¹´5æœˆ13æ—¥
+ * åˆ›å»ºäººï¼šAdministrator
  *
  * 
  */
 
 /**	
  *	<dl>
- * 		<dt>ÏîÄ¿Ãû³Æ£ºMyWebServer</dt>
- * 		<dd>ÀàÃû³Æ£ºServer</dd>
- * 		<dd>ÀàÃèÊö£ºÎŞ</dd>
- * 		<dd>´´½¨Ê±¼ä£º2015Äê5ÔÂ13ÈÕ ÏÂÎç7:53:58</dd>
- * 		<dd>´´½¨ÈË£ºAdministrator</dd>
- * 		<dd>±¸×¢£ºÎŞ</dd>
+ * 		<dt>é¡¹ç›®åç§°ï¼šMyWebServer</dt>
+ * 		<dd>ç±»åç§°ï¼šServer</dd>
+ * 		<dd>ç±»æè¿°ï¼šæ— </dd>
+ * 		<dd>åˆ›å»ºæ—¶é—´ï¼š2015å¹´5æœˆ13æ—¥ ä¸‹åˆ7:53:58</dd>
+ * 		<dd>åˆ›å»ºäººï¼šAdministrator</dd>
+ * 		<dd>å¤‡æ³¨ï¼šæ— </dd>
  * </dl>
  * @author Administrator
  * @version 1.0

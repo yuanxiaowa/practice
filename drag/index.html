@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>可视化布局</title>
+    <link href="http://cdn.bootcss.com/normalize/3.0.3/normalize.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="template.css">
+    <script src="index_base.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <div class="layout_container layout_center">
+        <div class="layout_left">
+            <h3>可视化布局</h3>
+            <ul class="layout_left_list" id="layout_left_list">
+                <li>
+                    <div draggable="true" data-type="container"></div>
+                </li>
+                <li>
+                    <div draggable="true" data-type="panel"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="layout_right">
+            <div class="layout_right_menu">
+            	<button id="full_screen" class="fr">全屏</button>
+                <ul>
+                	<li id="add_new_mobile">添加手机</li>
+                	<li id="add_new_pc">添加电脑</li>
+                </ul>
+            </div>
+            <ul class="layout_right_list" id="layout_right_list"></ul>
+        </div>
+    </div>
+    <div id="ss" style="position:fixed;left:0;right:0;top:0;bottom:0;background:#fff;display:none;">
+    	
+    </div>
+</body>
+
+</html>

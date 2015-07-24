@@ -1,0 +1,8 @@
+h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+h3 exactly {
+  width: 300px;
+}

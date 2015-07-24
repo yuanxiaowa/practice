@@ -1,0 +1,68 @@
+//-============================================\\
+//-            FileName: mixin.jade
+//-            Title: 基本功能
+//-            Author: Ody
+//-            Company: Weiwend Inc.
+//-            Desciption: 
+//-============================================//
+
+
+//- 图片路径
+- var IMG_DIR = '../image/'
+//- css路径
+- var CSS_DIR = '../css/'
+//- js路径
+- var JS_DIR = '../scripts/'
+
+
+//- 图片引用
+	如：+img('pic'),+img('pic.jpg')
+//-
+	说明:
+	1. 默认后缀为png
+	2. 不给路径则自动识别为变量IMG_DIR下的图片
+	3. 可以加额外的属性,如alt, 添加方式为：+img("")(alt="")
+mixin img(src)
+	- src = /\.(jpg|png|gif)$/i.test(src) ? src : src + '.png';
+	- src = /\//.test(src) ? src : IMG_DIR + src;
+	img(src=src)&attributes(attributes)
+
+
+//- css文件引用
+	如：+styles('css1')
+//-
+	说明：
+	1. 默认后缀为.css
+	2. 不给完整路径自动识别为变量CSS_DIR下的css
+	3. 单个css只需要给文件名即可，多个需要使用数组
+	4. 可以加额外的属性,同上
+mixin styles(files)
+	if typeof files == 'string'
+		- files = [files]
+	each file in files
+		link(rel="stylesheet"
+			href=(/\//.test(file) ? file : (CSS_DIR + file)) + (/\.css$/i.test(file) ? '' : '.css')
+		)&attributes(attributes)
+
+
+//- js文件引用
+	如：+scripts('js1')
+//-
+	说明：
+	1. 默认后缀为.js
+	2. 不给完整路径自动识别为变量JS_DIR下的js
+	3. 单个js只需要给文件名即可，多个需要使用数组
+	4. 可以加额外的属性,同上
+mixin scripts(files)
+	if typeof files == 'string'
+		- files = [files]
+	each file in files
+		script(
+			src=(/\//.test(file) ? file : (JS_DIR + file)) + (/\.js$/i.test(file) ? '' : '.js')
+		)&attributes(attributes)
+
+mixin iterator(n)
+	if block
+		- var i = 0
+		while i++ < n
+			block

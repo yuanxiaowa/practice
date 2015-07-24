@@ -1,0 +1,20 @@
+extends ./layout/base
+
+block title
+	title 网页
+
+block styles
+	style.
+		h1 {
+			color: red;
+		}
+	+styles('index')
+
+block body
+	h1 标题
+	+img('ab')(alt="")
+	+iterator(10)
+		div bbbbbbb
+
+block scripts
+	+scripts(['ab.js', 'bc'])

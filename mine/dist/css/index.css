@@ -1,8 +1,56 @@
-h3 {
+body {
+  margin: 0;
+}
+ul,
+menu,
+dir {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+a:link,
+a:hover,
+a:active,
+a:visited,
+a:focus {
+  color: inherit;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+}
+ul {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  background: url("../image");
 }
-h3 exactly {
-  width: 300px;
+ul li:nth-last-child(n + 5):nth-last-child(-n + 13):first-child,
+ul li:nth-last-child(n + 5):nth-last-child(-n + 13):first-child ~ li {
+  color: #f00;
+}
+p a[href$=".pdf"] {
+  background-image: url("../image/ppg.png");
+}
+p a[href$=".gif"] {
+  background-image: url("../image/nng.png");
+}
+.div p:only-of-type {
+  color: #f00;
+}
+.hj {
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+.arrow {
+  display: block;
+  width: 0;
+  border-bottom: 100px solid #f00;
+  border-left: 100px solid transparent;
 }

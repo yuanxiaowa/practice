@@ -11,10 +11,25 @@ block styles
 	+styles('index')
 
 block body
-	h1 标题
-	+img('ab')(alt="")
-	+iterator(10)
-		div bbbbbbb
 
+	span.arrow
+	ul
+		+iterator(14)
+			li hello
+	ul
+		li.hj 带有word-wrap测试中英文混排thisiswithdadfaadfadfadfadoutwordwrap测试中thsi is whorelokdowkdildkosdfadsfasdfadfakdikdos
+	input(type="text")
+	a(href="" lang) hello
+	p
+		a(href="http://ww.pdf") pdf
+	input(type="checkbox")
+	.div
+		p hello
+		div 01
+		div 02
+		div 03
+			div 000
+			p mmmm
+		div 04
 block scripts
 	+scripts(['ab.js', 'bc'])

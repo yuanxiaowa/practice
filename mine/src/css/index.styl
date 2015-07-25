@@ -1,6 +1,25 @@
+@import './base/reset'
 @import './base/mixin'
 
-h3
+ul
 	ellipsis 0
-	exactly
-		width 300px
+	+between(13, 5, li)
+		color red
+	background url('../image')
+p
+	doc_icons((pdf ppg) (gif 'nng.png'))
+	
+.div
+	p:only-of-type
+		color red
+.hj
+	width: 200px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	word-wrap break-word
+	word-break break-all
+	white-space normal
+	
+.arrow
+	// triangle 10px #f00
+	r-triangle 100px #f00 (b r)

@@ -1,9 +1,86 @@
-/*a
-	&:link
-	&:hover
-	&:active
-	&:visited*/
+body
+	margin 0
+ul,
+menu,
+dir
+	margin 0
+	padding 0
+a
+	text-decoration none
+	&:link, // 未访问过的
+	&:hover, // 鼠标经过
+	&:active, // 激活或点击
+	&:visited, // 访问过的
+	&:focus // 获取焦点
+		color inherit
+		
 input,
 textarea
 	&:focus
 		outline none 
+
+input
+	// 可用
+	&:enabled {}
+	// 不可用
+	&:disabled {}
+	// 单选或多选按钮选中状态
+	&:checked {}
+	// 单选或多选按钮既未被选中，又不处于非选中状态, 即未决定状态
+	&:indeterminate {}
+
+/*--------- 伪类 start -----------*/
+/**
+  * :first-child 父元素下的第一个子元素
+  * :last-child 父元素下的最后一个子元素
+  * :only-child 父元素下面只有一个子元素
+  */
+  
+/**
+  * :first-of-type 父元素下某种子元素的第一个
+  * :last-of-type 父元素下某种子元素的最后一个
+  * :only-of-type 父元素下只有一个这种类型的子元素
+  */
+
+/**
+  * :nth-child(an ± b)
+  * :nth-last-child(an ± b)
+  * :nth-of-type(an ± b)
+  * :nth-last-of-type(an ± b)
+  */
+  
+/**
+  * :target 目标伪类, 选择URI片段标示符的值指向的元素
+  */
+  
+/**
+  * :empty 空伪类, 不包含子元素或者文本的元素
+  */
+
+/**
+  * :not(x) 否定伪类, 选择不匹配某个状态标示符的元素
+  */
+/*--------- 伪类 end -----------*/
+
+/*--------- 伪元素 start -----------*/
+/**
+  * :before 在被选择元素前创建伪元素
+  * :after 在被选择元素末尾创建伪元素
+  */
+
+/**
+  * 文本伪元素
+  * :first-letter 匹配一个元素内文字的第一个字母
+  * :first-line 匹配第一行
+  */
+
+/**
+  * 片段伪元素
+  * ::selection 通过用户操作所选定或者高亮的部分，选定的部分会被应用样式, 只能使用color,background,background-color,text-shadow属性
+  */
+/*--------- 伪元素 end -----------*/
+
+/**
+  * 单个冒号（:）和双冒号（::）
+  * 片段伪元素是css3新增加的内容，为了与伪类所区别，伪元素前前面用双冒号表示。
+  */

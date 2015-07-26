@@ -1,7 +1,18 @@
+// 四个方向的键值对
 $dirs = (l 'left') (t top) (b 'bottom') (r 'right')
+// 设计图字体大小
+$fs = 24
+// 设计图总体宽度
+$mw = 720
 
+/**
+  * 根据键获取值
+  * @param hash 键值对
+  * @param key 键
+  */
 get(hash, key)
 	return pair[1] if key == pair[0] for pair in hash
+
 /**
   * 元素居中
   * @param xis 居中的轴，默认为x和y，可以用x或y来指定特定方向
@@ -34,16 +45,27 @@ em()
 	return (arguments[0] / arguments[1])em if arguments[1]
 	return (arguments[0] / 24)em
 
+/**
+  * 百分比
+  * 无参数默认为100%
+  * @param arguments[0] 分子
+  * @param arguments[1] 分母，默认为$mw
+  */
 per()
 	return 100% if !arguments[0]
 	return (arguments[0] / arguments[1] * 100%) if arguments[1]
-	return (arguments[0] / 720 * 100%)
+	return (arguments[0] / $mw * 100%)
 	
+/**
+  * 背景图片
+  * @param src 图片链接地址
+  */
 img(src)
 	src = s(src)
 	src = match('\.(gif|png|jpe?g)$', src) ? src : s(src + '.png')
 	src = match('/', src) ? src : s('../image/%s', src)
 	background-image url(src)
+
 
 /**
   * 圆形
@@ -88,7 +110,7 @@ triangle(width, color, direction = t)
 	border width solid transparent
 	border-{get($dirs, direction)}-color color
 	border-{opposite-position(get($dirs, direction))}-width 0
-	
+
 /**
   * 直角三角形
   * @param width 边长

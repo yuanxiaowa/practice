@@ -11,6 +11,13 @@ block styles
 	+styles('index')
 
 block body
+	input(type="range")
+	iframe(src="image/girl.svg" width="200" height="200")
+	img(src="image/girl.svg" width="200" height="200")
+	form#form(action="")
+		input(type="text")
+		div hello
+		button 提交
 
 	span.arrow
 	ul
@@ -31,5 +38,14 @@ block body
 			div 000
 			p mmmm
 		div 04
+	script.
+		document.getElementById('form').onsubmit = function (e) {
+			//- for (var o in this) {
+			//- 	console.log(o)
+			//- }
+			console.log(e)
+			console.log(this.elements)
+			return false;
+		}
 block scripts
 	+scripts(['ab.js', 'bc'])

@@ -63,7 +63,7 @@ module.exports = function (grunt) {
                             connect().use('/', connect.static(options.base[0] + '/views')),
                             connect().use('./bower_components', connect.static('../bower_components')),
                         ];
-                        var _arr = ['scripts', 'css'];
+                        var _arr = ['scripts', 'css', 'image'];
                         for (var _i in _arr) {
                             arr.push(connect().use('/' + _arr[_i], connect.static(options.base[0] + '/' + _arr[_i])));
                         }

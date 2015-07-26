@@ -15,7 +15,14 @@
     </style>
     <link rel="stylesheet" href="../css/index.css"/>
   </head>
-  <body><span class="arrow"></span>
+  <body>
+    <input type="range"/>
+    <iframe src="image/girl.svg" width="200" height="200"></iframe><img src="image/girl.svg" width="200" height="200"/>
+    <form id="form" action="">
+      <input type="text"/>
+      <div>hello</div>
+      <button>提交</button>
+    </form><span class="arrow"></span>
     <ul>
       <li>hello</li>
       <li>hello</li>
@@ -48,6 +55,16 @@
       </div>
       <div>04</div>
     </div>
+    <script>
+      document.getElementById('form').onsubmit = function (e) {
+      	//- for (var o in this) {
+      	//- 	console.log(o)
+      	//- }
+      	console.log(e)
+      	console.log(this.elements)
+      	return false;
+      }
+    </script>
     <script src="../scripts/ab.js"></script>
     <script src="../scripts/bc.js"></script>
   </body>

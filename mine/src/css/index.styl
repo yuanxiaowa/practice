@@ -1,17 +1,28 @@
-@import './base/reset'
+// @import './base/reset'
+@import './base/base'
 @import './base/mixin'
-@import './base/form'
+// @import './base/form'
+@import './base/layout'
 
-input_range()
+navicon()
+// input_range()
++media(480)
+	div
+		display block
+.div2
+	layout3()
+layout1('.eles', ('.ele1_' '.ele2_'))
 
 ul
 	ellipsis 0
 	+between(13, 5, li)
 		color red
 	background url('../image')
+	width em()
 p
 	doc_icons((pdf ppg) (gif 'nng.png'))
-	
+	center 0
+
 .div
 	p:only-of-type
 		color red
@@ -23,6 +34,6 @@ p
 	word-break break-all
 	white-space normal
 	
-.arrow
+//.arrow
 	// triangle 10px #f00
-	r-triangle 100px #f00 (b r)
+//	r-triangle 100px #f00 (b r)

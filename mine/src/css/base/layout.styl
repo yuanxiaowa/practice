@@ -1,0 +1,111 @@
+unless typeof(per) == 'function'
+	error('请先引入mixin.styl')
+
+/**
+  * type mixin
+  * name 网格布局
+  */
+col()
+	.row
+		@extend .clearfix
+	for $i in 1..12
+		.col-{$i}
+			float left
+			width per($i, 12) 
+	
+/**
+  * type mixin
+  * name 布局
+  * @param ele 包裹元素
+  * @param childs 子元素
+  * @param direction 水平还是垂直布局
+  */
+layout1(ele, childs, direction = row)
+	{ele}
+		display flex
+		flex-direction direction
+		>{join(',>', childs)}
+			flex 1
+			overflow auto
+/**
+  * type mixin
+  * name 全屏布局
+  * @param ele 包裹元素
+  * @param content 内容元素, 默认为无, ele就为内容元素
+  * @param header 头部, 形式如(ele height), 默认为null
+  * @param footer 底部, 同上, 默认为null
+  */
+layout2(ele, content = null, header = null, footer = null)
+	{ele}
+		position absolute
+		height 100% 
+		width 100% 
+		if content
+			overflow auto
+			{content}
+				/* --方案1-- */
+				height 100%
+				box-sizing border-box 
+				/* --方案2-- */
+				/*
+				position absolute
+				width 100% 
+				if header
+					top header[1]
+				else
+					top 0
+				if footer
+					bottom footer[1]
+				else
+					bottom 0
+				*/
+		else
+			overflow hidden
+		if header
+			{header[0]}
+				position absolute
+				width 100% 
+				height header[1]
+				& ~ {content}
+					padding-top content[1]
+		if footer
+			{footer[0]}
+				position absolute
+				width 100% 
+				bottom 0 
+				height footer[1]
+				& ~ {content}
+					padding-bottom content[1]
+			
+/**
+  * type mixin
+  * name 等分多列布局
+  * @param ele 布局元素, 默认为当前元素
+  */
+layout3(ele = null)
+	if ele
+		{ele}
+			display table-cell
+			width 2000px 
+	else
+		display table-cell
+		width 2000px 
+		
+/**
+  * type mixin
+  * name 左中右布局
+  * @param left 左部元素
+  * @param content 内容元素
+  * @param right 右部元素, 默认为无
+  */
+layout4(left, content, right = null)
+	&
+		@extend .clearfix
+	if left
+		{left}
+			float left
+	if right
+		{right}
+			float right
+	{content}
+		overflow hidden

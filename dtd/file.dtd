@@ -1,0 +1,7 @@
+<!ELEMENT 参考资料 (书籍*)>
+<!ELEMENT 书籍 (名称,作者,价格)>
+<!ELEMENT 名称 (#PCDATA)>
+<!ELEMENT 作者 (#PCDATA)>
+<!ELEMENT 价格 (#PCDATA)>
+<!ATTLIST 价格 货币单位 CDATA #REQUIRED f CDATA #FIXED "134">
+<!ENTITY copyright "Copyright">

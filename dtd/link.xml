@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE SimpleLink[
+	<!ELEMENT SimpleLink (#PCDATA)>
+	<!ATTLIST SimpleLink
+		xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink"
+		xlink:type (simple) #FIXED "simple"
+		xlink:href CDATA #REQUIRED
+		xlink:role CDATA #IMPLIED
+		xlink:title CDATA #IMPLIED
+		xlink:show (embed|replace|new|undefined) "replace"
+		xlink:actuate (onLoad|onRequest|undefined) "onRequest">
+]>
+<!-- Hello -->
+<SimpleLink
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xlink:href="http://www.xlinksample.com/simplelink.xml">
+		This is a simple xlink!
+</SimpleLink>

@@ -1,28 +1,38 @@
 // 四个方向的键值对
-$dirs = (l 'left') (t top) (b 'bottom') (r 'right')
+$dirs = (l 'left') (t 'top') (b 'bottom') (r 'right')
 // 设计图字体大小
 $fs = 24
 // 设计图总体宽度
 $mw = 720
 
 /**
-  * 根据键获取值
+  * type function
+  * name 根据键获取值
   * @param hash 键值对
   * @param key 键
   */
 get(hash, key)
 	return pair[1] if key == pair[0] for pair in hash
+	
+/**
+  * type mixin
+  * name 媒体查询
+  * width 宽度
+  */
+media(width)
+	unless unit(width) == 'px'
+		width = unit(width, 'px')
+	@media screen and (max-width: width)
+		{block}
 
 /**
-  * 元素居中
+  * type mixin
+  * name 元素居中
   * @param xis 居中的轴，默认为x和y，可以用x或y来指定特定方向
   * @param pos 定位方式，默认为absolute
   */
-center(xis, pos)
-	if !pos
-		position absolute
-	else
-		position pos
+center(xis = 0, pos = absolute)
+	position pos
 	if xis == 'x'
 		left 50%
 		transform translate(-50%, 0)
@@ -34,30 +44,41 @@ center(xis, pos)
 		left 50%
 		transform translate(-50%, -50%)
 
-rem()
-	return 1rem if !arguments[0]
+/**
+  * type function
+  * name 相对单位rem
+  * 默认返回1rem
+  * @param p 所占像素大小, 默认为$fs
+  * @param m 根元素像素大小, 默认为$fs
+  */
+rem(p = $fs, m = $fs)
 	return (arguments[0] / 24)rem (arguments[1] / 24)rem if (arguments[1])
-	return (arguments[0] / 24)rem
-
-em()
-	return 1em if !arguments[0]
-	return 1px if arguments[0] <= 1
-	return (arguments[0] / arguments[1])em if arguments[1]
-	return (arguments[0] / 24)em
+	(p / m)rem
 
 /**
-  * 百分比
-  * 无参数默认为100%
-  * @param arguments[0] 分子
-  * @param arguments[1] 分母，默认为$mw
+  * type function
+  * name 相对单位em
+  * 默认返回1em
+  * @param p 所占像素大小, 默认为$fs
+  * @param m 字体像素大小, 默认为$fs
   */
-per()
-	return 100% if !arguments[0]
-	return (arguments[0] / arguments[1] * 100%) if arguments[1]
-	return (arguments[0] / $mw * 100%)
+em(p = $fs, m = $fs)
+	return 1px if arguments[0] <= 1
+	(p / m)em
+
+/**
+  * type function
+  * name 百分比
+  * 无参数默认为100%
+  * @param p 分子, 默认为1
+  * @param m 分母, 默认为1
+  */
+per(p = 1, m = 1)
+	(p / m * 100%)
 	
 /**
-  * 背景图片
+  * type mixin
+  * name 背景图片
   * @param src 图片链接地址
   */
 img(src)
@@ -68,13 +89,15 @@ img(src)
 
 
 /**
-  * 圆形
+  * type mixin
+  * name 圆形
   */
 circle()
 	border-radius 50%
 
 /**
-  * 溢出显示省略号
+  * type mixin
+  * name 溢出显示省略号
   * @param mut 是否多行
   * @param lines 当为多行时候，指定行数
   */
@@ -88,7 +111,8 @@ ellipsis(mut, lines = 2)
 	else
 		white-space nowrap
 /**
-  * 矩形
+  * type mixin
+  * name 矩形
   * @param width 宽度
   * @param height 高度，无则为宽度
   */
@@ -97,7 +121,8 @@ rect(width, height = width)
 	height height 
 	
 /**
-  * 三角形
+  * type mixin
+  * name 三角形
   * @param width 高度
   * @param color 颜色
   * @param direction 方向，默认向上
@@ -112,7 +137,8 @@ triangle(width, color, direction = t)
 	border-{opposite-position(get($dirs, direction))}-width 0
 
 /**
-  * 直角三角形
+  * type mixin
+  * name 直角三角形
   * @param width 边长
   * @param color 颜色
   * @param directions 直角边所在方向
@@ -125,13 +151,15 @@ r-triangle(width, color, directions = (l t))
 	border-{opposite-position(get($dirs, directions[1]))} width solid transparent
 
 /**
-  * 微软雅黑
+  * type mixin
+  * name 微软雅黑
   */
 yahei()
 	font-family 'Microsoft YaHei'
 
 /**
-  * 宋体
+  * type mixin
+  * name 宋体
   */
 songti()
 	font-family SimSun
@@ -139,7 +167,8 @@ songti()
 /*-------------- 数量查询 start -----------------*/
 
 /**
-  * 子元素个数等于某个值，就为其指定给定样式
+  * type mixin
+  * name 子元素个数等于某个值，就为其指定给定样式
   * @param n 数量
   * @param ele 标签名
   */
@@ -149,7 +178,8 @@ exactly(n, ele)
 		{block}
 	
 /**
-  * 大于等于某个值
+  * type mixin
+  * name 大于等于某个值
   * @param n 数量
   * @param ele 标签名
   */
@@ -159,7 +189,8 @@ at-least(n, ele)
 		{block}
 	
 /**
-  * 小于等于
+  * type mixin
+  * name 小于等于
   * @param n 数量
   * @param ele 标签名
   */
@@ -169,7 +200,8 @@ at-most(n, ele)
 		{block}
 	
 /**
-  * 某个范围
+  * type mixin
+  * name 某个范围
   * @param a 数量
   * @param b 数量
   * @param ele 标签名
@@ -186,7 +218,8 @@ between(a, b, ele)
 
 /*--------- 文档图标 start -----------*/
 /**
-  * 给文档标签添加图标
+  * type mixin
+  * name 给文档标签添加图标
   * @params arguments 参数，键值对，如 (pdf "pdf.png")
   */
 doc_icons()
@@ -194,3 +227,65 @@ doc_icons()
 		a[href$={s('".%s"', o[0])}]
 			img o[1]
 /*--------- 文档图标 end -----------*/
+
+/*--------- Navicon Transformicons start -----------*/
+navicon(ele = ('.lines-button' 'arrow' '.lines' '.close'), type = 1, size = 70px, color = #f00, transition = .3s)
+	$scale = (1 / 1.8)
+	$x = type == 1 ? 1 : -1
+	line()
+		display inline-block
+		width size
+		height (size / 7)
+		background color
+		border-radius (size / 14)
+		transition transition
+	{ele[0]}
+		display inline-block
+		padding (size / 2) (size / 4)
+		transition transition
+		cursor pointer
+		user-select none
+		border-radius (size / 7)
+		&:hover
+			opacity 1
+			{ele[2]}
+				&:before
+					top (size / 3.5)
+				&:after
+					top -(size / 3.5)
+		&:active
+			transition 0
+			background rgba(0, 0, 0, .1) 
+		&{ele[3]}
+			transform scale3d(.8, .8, .8)
+			{ele[2]}
+				&:before,
+				&:after
+					top 0
+					width (size * $scale) 
+					if type == 1
+						transform-origin (size * $scale / 14) center
+					else
+						transform-origin (size * $scale * (1 - 1 / 14)) center
+				&:before
+					transform rotate3d(0, 0, 1, (40 * $x)deg)
+				&:after
+					transform rotate3d(0, 0, 1, -(40 * $x)deg)
+	{ele[2]}
+		line()
+		position relative
+		&:after,
+		&:before
+			line()
+			position absolute
+			content '' 
+			if type == 1
+				left 0
+			else
+				right 0
+		&:before
+			top (size / 4)
+		&:after
+			top -(size / 4)
+		
+/*--------- Navicon Transformicons end -----------*/

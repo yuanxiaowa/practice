@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="tool.xsl"?>
+<tool>
+	<field id="prodName1">
+		<value>afdsjkldsfa1</value>
+	</field>
+	<field id="prodName2">
+		<value>afdsjkldsfa2</value>
+	</field>
+	<field id="prodName3">
+		<value>afdsjkldsfa3</value>
+	</field>
+	<field id="prodName4">
+		<value>afdsjkldsfa4</value>
+	</field>
+	<field id="prodName5">
+		<value>afdsjkldsfa5</value>
+	</field>
+</tool>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="c.css"?>
+<!DOCTYPE 参考资料[
+	<!ELEMENT 参考资料 (书籍*)>
+	<!ELEMENT 书籍 (名称,作者,价格)>
+	<!ELEMENT 名称 (#PCDATA)>
+	<!ELEMENT 作者 (#PCDATA)>
+	<!ELEMENT 价格 (#PCDATA)>
+	<!ATTLIST 价格 货币单位 CDATA #REQUIRED f CDATA #FIXED "134">
+	<!ENTITY copyright "Copyright">
+]>
+<参考资料>
+	<书籍>
+		<名称>Java网编程</名称>
+		<作者>杨东平 &copyright;</作者>
+		<价格 货币单位="人民币">20.00</价格>
+	</书籍>
+	<![CDATA[<fdsaf>]]>
+</参考资料>

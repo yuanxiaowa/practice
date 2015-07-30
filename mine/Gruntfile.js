@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         },
         watch: {
         	stylus: {
-        		tasks: ['stylus'],
+        		tasks: ['css'],
         		files: ['<%= config.app %>/css/**/*.styl']
         	},
             jade: {

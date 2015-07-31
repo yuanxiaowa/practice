@@ -13,6 +13,18 @@ $mw = 720
   */
 get(hash, key)
 	return pair[1] if key == pair[0] for pair in hash
+
+/**
+  * type function
+  * name 判断一个对象里面是否有某个值
+  * @param obj 对象
+  * @param key 判断的值
+  */	
+contains(obj, key)
+	for o in obj
+		if key == o
+			return true
+	return false
 	
 /**
   * type mixin
@@ -229,9 +241,27 @@ doc_icons()
 /*--------- 文档图标 end -----------*/
 
 /*--------- Navicon Transformicons start -----------*/
-navicon(ele = ('.lines-button' 'arrow' '.lines' '.close'), type = 1, size = 70px, color = #f00, transition = .3s)
+/**
+  * type mixin
+  * name 三条线过渡
+  * @param types 要过渡到的类型
+  * 	1. 左箭头 arrow-left
+  *		2. 右箭头 arrow-right
+  *		3. 上箭头 arrow-up
+  *		4. 下箭头 arrow-down
+  *		5. × x
+  * @param size 大小
+  * @param color 图标
+  * @param transition 过渡时间
+  *
+  *	description:
+  *		基本格式为
+  *			.lines-button.type > span.lines
+  *		切换后的格式为
+  *			.lines-button.type.close > span.lines
+  */
+navicon(types = (1 2 3 4 5 6), size = 70px, color = #f00, transition = .3s)
 	$scale = (1 / 1.8)
-	$x = type == 1 ? 1 : -1
 	line()
 		display inline-block
 		width size
@@ -239,53 +269,172 @@ navicon(ele = ('.lines-button' 'arrow' '.lines' '.close'), type = 1, size = 70px
 		background color
 		border-radius (size / 14)
 		transition transition
-	{ele[0]}
+	.lines-button
 		display inline-block
 		padding (size / 2) (size / 4)
 		transition transition
 		cursor pointer
 		user-select none
 		border-radius (size / 7)
+		text-align left
 		&:hover
 			opacity 1
-			{ele[2]}
+			.lines
 				&:before
 					top (size / 3.5)
 				&:after
 					top -(size / 3.5)
 		&:active
 			transition 0
-			background rgba(0, 0, 0, .1) 
-		&{ele[3]}
+			background rgba(0, 0, 0, .1)
+		.lines
+			position relative
+			line()
+			&:after,
+			&:before
+				position absolute
+				content '' 
+				line()
+			&:before
+				top (size / 4)
+			&:after
+				top -(size / 4)
+		if contains(types, 2)
+			&.arrow-right .lines
+				&:after,
+				&:before
+					right 0 
+		if contains(types, 6)
+			&.x2 .lines
+				&:after,
+				&:before
+					transition transform transition ease, top transition (transition + .2) ease
+		&.close
 			transform scale3d(.8, .8, .8)
-			{ele[2]}
+			.lines
 				&:before,
 				&:after
 					top 0
-					width (size * $scale) 
-					if type == 1
+			if contains(types, 1)
+				&.arrow-left .lines
+					&:before,
+					&:after
+						width (size * $scale) 
 						transform-origin (size * $scale / 14) center
-					else
+					&:before
+						transform rotate3d(0, 0, 1, 40deg)
+					&:after
+						transform rotate3d(0, 0, 1, -40deg)
+			if contains(types, 2)
+				&.arrow-right .lines
+					&:before,
+					&:after
+						width (size * $scale) 
 						transform-origin (size * $scale * (1 - 1 / 14)) center
-				&:before
-					transform rotate3d(0, 0, 1, (40 * $x)deg)
-				&:after
-					transform rotate3d(0, 0, 1, -(40 * $x)deg)
-	{ele[2]}
-		line()
-		position relative
-		&:after,
-		&:before
-			line()
-			position absolute
-			content '' 
-			if type == 1
-				left 0
-			else
-				right 0
-		&:before
-			top (size / 4)
-		&:after
-			top -(size / 4)
-		
+					&:before
+						transform rotate3d(0, 0, 1, -40deg)
+					&:after
+						transform rotate3d(0, 0, 1, 40deg)
+			if contains(types, 3)
+				&.arrow-up
+					transform rotate3d(0, 0, 1, 90deg)
+					.lines
+						&:before,
+						&:after
+							width (size * $scale) 
+							transform-origin (size * $scale / 14) center
+						&:before
+							transform rotate3d(0, 0, 1, 40deg)
+						&:after
+							transform rotate3d(0, 0, 1, -40deg)
+			if contains(types, 4)
+				&.arrow-down
+					transform rotate3d(0, 0, 1, -90deg)
+					.lines
+						&:before,
+						&:after
+							width (size * $scale) 
+							transform-origin (size * $scale / 14) center
+						&:before
+							transform rotate3d(0, 0, 1, 40deg)
+						&:after
+							transform rotate3d(0, 0, 1, -40deg)
+			if contains(types, 5)
+				&.x .lines
+					background transparent 
+					&:before
+						transform rotate3d(0, 0, 1, 45deg)
+					&:after
+						transform rotate3d(0, 0, 1, -45deg)
+			if contains(types, 6)
+				&.x2 .lines
+					background transparent 
+					&:before,
+					&:after
+						transition transform transition (transition + .2) ease, top transition ease
+					&:before
+						transform rotate3d(0, 0, 1, 45deg)
+					&:after
+						transform rotate3d(0, 0, 1, -45deg)
+
+/**
+  * type mixin
+  * name 网格过渡为×
+  * @param types 要过渡到的类型
+  * 	1. 大× rearrange
+  *		2. 小× collapse
+  * @param size 大小
+  * @param space 间隔大小
+  * @param color 图标
+  * @param transition 过渡时间
+  *
+  *	description:
+  *		基本格式为
+  *			.grid-button.type > span.grid
+  *		切换后的格式为
+  *			.grid-button.type.close > span.grid
+  */
+grid(types = (1 2), size = 1em, space = (size / 4), color = #c0392b, transition = .3s)
+	.grid-button
+		padding size * 2
+		cursor pointer
+		user-select none
+		.grid
+			display block
+			rect size
+			background color
+			color color
+			transition transition
+			box-shadow (-(size + space)) (-(size + space)),
+				0 (-(size + space)),
+				(size + space) (-(size + space)),
+				(size + space) 0,
+				(size + space) (size + space),
+				0 (size + space),
+				(-(size + space)) (size + space),
+				(-(size + space)) 0
+		&.close
+			if contains(types, 1)
+				&.rearrange .grid
+					transform rotate3d(0, 0, 1, -45deg)
+					box-shadow 0 (-(size * 2)),
+						0 (-(size)),
+						size * 2 0,
+						size 0,
+						0 size * 2,
+						0 size,
+						-(size * 2) 0,
+						-(size) 0
+			if contains(types, 2)
+				&.collapse .grid
+					transform rotate3d(0, 0, 1, -45deg)
+					box-shadow 0 (-(size)),
+						0 (-(size)),
+						size 0,
+						size 0,
+						0 size,
+						0 size,
+						-(size) 0,
+						-(size) 0
+
 /*--------- Navicon Transformicons end -----------*/

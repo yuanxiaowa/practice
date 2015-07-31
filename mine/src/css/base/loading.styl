@@ -1,3 +1,222 @@
+unless typeof(per) == 'function'
+	error('请先引入mixin.styl')
+
+/*--------- Loading start -----------*/
+
+/**
+  * Loading动画网站
+  *		1. [Loaders.css](https://connoratherton.com/loaders)
+  *		2. [CSS Load.net](http://cssload.net/)
+  */
+
+/**
+  * type mixin
+  * name 音浪效果
+  * @param height 最大高度
+  * @param colors 变换的颜色
+  *
+  * description
+  *		dom结构
+  *			.preloader1>span*5
+  */
+preloader1(height = 30px, colors = (#9b59b6 #3498db))
+	@keyframes preloader1
+		25%
+			height height
+			background colors[1]
+		50%
+			height (height / 6)
+			background colors[0]
+	.preloader1
+		position relative
+		height height
+		span
+			center y
+			height (height / 6)
+			width (height * 9 / 30)
+			background colors[0]
+			animation preloader1 1.5s infinite ease-in-out
+			for i in 2..5
+				&:nth-child({i})
+					left (height * 11 / 30) * (i - 1)
+					animation-delay .2s * (i - 1)
+/**
+  * type mixin
+  * name 方与圆转换效果
+  * @param width 小方块的宽度
+  * @param colors 主色 4个方块的变换颜色
+  *
+  * description
+  *		dom结构
+  *			.preloader2>span*4
+  */
+preloader2(width = 20px, colors = (#9b59b6 #3498db #f1c40f #2ecc71 #e74c3c))
+	for i in 1..4
+		$x = (i % 2) ? 1 : -1
+		$y = (i < 3) ? 1 : -1
+		@keyframes preloader2_{i}
+			50%
+				transform translateX(-(width * $x)) translateY(-(width * $y / 2)) rotate(-(180deg * $x))
+				circle 0
+				background colors[i] 
+			80%
+				transform initial
+	.preloader2
+		position relative
+		height width * 2 
+		span
+			position absolute
+			bottom 0
+			width width
+			height width
+			background colors[0]
+			for i in 1..4
+				&:nth-child({i})
+					unless i % 2
+						left width
+					if i > 2
+						top 0
+					animation s('preloader2_%s', i) 1.5s infinite ease-in-out
+/**
+  * type mixin
+  * name 交叉变换效果
+  * @param width 方块宽度
+  * @param colors 变换的颜色
+  *
+  * description
+  *		dom结构
+  *			.preloader3
+  */
+preloader3(width = 20px, colors = (#9b59b6 #2ecc71))
+	for i in 1 2
+		$x = i == 1 ? 1 : -1
+		@keyframes preloader3_{i}
+			50%
+				transform translateX(width * $x * (50 / 20)) scale(1.2) rotate(260deg * $x)
+				background colors[(2 - i)]
+				border-radius 0
+			100%
+				transform initial
+	.preloader3
+		position relative
+		&:before,
+		&:after
+			position absolute
+			content ''
+			rect width
+			circle 0
+		&:before
+			background colors[0]
+			animation preloader3_1 1.5s infinite ease-in-out
+		&:after
+			background colors[1]
+			left width * (22 / 20)
+			animation preloader3_2 1.5s infinite ease-in-out
+/**
+  * type mixin
+  * name 蛇形效果
+  * @param width 圆形宽度
+  * @param colors 变换的颜色
+  *
+  * description
+  *		dom结构
+  *			.preloader4>span*5
+  */
+preloader4(width = 20px, colors = (#3498db #f1c40f))
+	@keyframes preloader4
+		50%
+			opacity 1
+			transform translateY(-(width / 2))
+			box-shadow 0px 20px 3px rgba(0, 0, 0, 0.05)
+			background colors[1] 
+	.preloader4
+		position relative
+		span
+			position absolute
+			rect width
+			background colors[0] 
+			circle 0
+			opacity .3
+			animation preloader4 1s infinite ease-in-out
+			box-shadow 0px 0px 3px rgba(0, 0, 0, 0.1)
+			for i in 2..5
+				&:nth-child({i})
+					left 20px * (i - 1)
+					animation-delay .2s * (i - 1)
+/**
+  * type mixin
+  * name 旋转效果
+  * @param width 最大高度
+  * @param colors 变换的颜色
+  *
+  * description
+  *		dom结构
+  *			.preloader5
+  */
+preloader5(width = 30px, colors = (#9b59b6 #3498db #2ecc71))
+	@keyframes preloader5_1
+		50%
+			transform rotate(180deg)
+			color colors[1]
+		100%
+			transform rotate(360deg)
+	@keyframes preloader5_2
+		50%
+			background colors[2]
+	.preloader5
+		position relative
+		rect width
+		padding (width / 3)
+		border @padding solid
+		color colors[0]
+		border-top-color transparent
+		border-bottom-color transparent
+		circle 0
+		animation preloader5_1 1.5s infinite linear 
+		&:after
+			display block
+			content ''
+			rect width
+			circle 0
+			background colors[1] 
+			animation preloader5_2 1.5s infinite linear 
+			
+/**
+  * type mixin
+  * name Microsoft效果
+  * @param width 小方块的宽度
+  * @param colors 4个方块的颜色
+  *
+  * description
+  *		dom结构
+  *			.preloader6>span*4
+  */
+preloader6(width = 20px, colors = (#2ecc71 #9b59b6 #3498db #f1c40f))
+	@keyframes preloader6_1
+		to
+			transform rotate(360deg)
+	@keyframes preloader6_2
+		50%
+			transform scale(.5)
+	.preloader6
+		position relative
+		rect width * (42 / 20)
+		// animation preloader6_1 5s infinite linear
+		span
+			position absolute
+			rect width
+			animation preloader6_2 1s infinite linear
+			for i in 1..4
+				&:nth-child({i})
+					background colors[(i - 1)] 
+					animation-delay .2s * (i - 1)
+					unless i % 2
+						left width * (22 / 20)
+					if i > 2
+						top width * (22 / 20)
+						
+/*--------- Loading end -----------*/
+
 @keyframes animate-stripes
 	from
 		background-position 0 0

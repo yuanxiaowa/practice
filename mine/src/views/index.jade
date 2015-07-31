@@ -14,11 +14,19 @@ block body
 	.ui-progress-bar.ui-container
 		.ui-progress
 			span.ui-label done
-	div(style="text-align:center;margin: 24px 0")
-		button.lines-button.arrow_.arrow-left(type="button")
+	div(style="text-align:center;margin: 24px 0;")
+		div(style="text-align:left;padding-left:100px")
+			.preloader6
+				span
+				span
+				span
+				span
+		button.grid-button.collapse
+			span.grid
+		button.lines-button.x(type="button")
 			span.lines
 		script.
-			[].forEach.call(document.getElementsByClassName('lines-button'), function(ele) {
+			[].forEach.call(document.querySelectorAll('.lines-button,.grid-button'), function(ele) {
 				ele.onclick = function () {
 					this.classList.toggle('close')
 				}

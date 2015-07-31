@@ -1,3 +1,10 @@
+*
+	// 防止元素单击高亮显示，点击链接或者用js定义可点击元素会出现一个半透明的灰色背景或者红色的边框
+	-webkit-tap-highlight-color rgba(0, 0, 0, 0)
+html
+	font-family sans-serif
+	//  Prevent iOS text size adjust after orientation change, without disabling user zoom.
+	-webkit-text-size-adjust 100%
 body
 	margin 0
 ul,
@@ -14,10 +21,12 @@ a
 	&:focus // 获取焦点
 		color inherit
 		
+a,
 input,
 textarea
-	&:focus
-		outline none // Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though.
+	&:focus,
+	&:active
+		outline 0 // Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though.
 
 input
 	// 可用
@@ -28,6 +37,9 @@ input
 	&:checked {}
 	// 单选或多选按钮既未被选中，又不处于非选中状态, 即未决定状态
 	&:indeterminate {}
+
+img
+	border none
 
 /*--------- 伪类 start -----------*/
 /**

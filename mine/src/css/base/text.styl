@@ -1,0 +1,120 @@
+unless typeof(per) == 'function'
+	error('请先引入mixin.styl')
+// 文本效果
+
+/**
+  * type mixin
+  * name Inset Text(内阴影效果)
+  * @param color 颜色
+  * @param shadow-color 阴影颜色
+  */
+text-type1(color, shadow-color = #21)
+	color color
+	text-shadow 1px 1px 0 shadow-color
+
+/**
+  * type mixin
+  * name 3D Text(3D立体效果)
+  * @param color 颜色
+  */
+text-type2(color=#f)
+	color color
+	text-shadow 0 1px 0 #c,
+		0 2px 0 #c9,
+		0 3px 0 #b,
+		0 4px 0 #b9,
+		0 5px 0 #a,
+		0 6px 1px rgba(0,0,0,0.1),
+		0 0 5px rgba(0,0,0,0.1),
+		0 1px 3px rgba(0,0,0,0.3),
+		0 3px 5px rgba(0,0,0,0.2),
+		0 5px 10px rgba(0,0,0,0.25)
+
+/**
+  * type mixin
+  * name Neon Lights Effect(霓虹灯效果)
+  * @param color 颜色
+  */
+text-type3(color=#f)
+	color color
+	text-shadow 0 0 5px #c,
+		0 0 10px #c,
+		0 0 15px #c,
+		0 0 20px #095816,
+		0 0 25px #095816,
+		0 0 30px #095816,
+		0 0 50px #095816,
+		0 0 80px #095816,
+		0 0 100px #095816,
+		0 0 150px #095816
+
+/**
+  * type mixin
+  * name Letterpress Effect (凸版效果)
+  * @param color 颜色
+  */
+text-type4(color=#2)
+	color color
+	text-shadow 0 2px 3px #5
+
+/**
+  * type mixin
+  * name Text Embossing(浮雕效果)
+  * @param color 颜色
+  */
+text-type5(color=#73)
+	color color
+	text-shadow 0 1px 0 #e5e5ee
+
+/**
+  * type mixin
+  * name Stroke Effect(描边效果)
+  * @param color 描边颜色
+  */
+text-type6(color=#0)
+	-webkit-text-stroke 1px color
+	-webkit-text-fill-color transparent
+	// 在Firefox下可以模拟
+	//	color transparent
+	//	text-shadow 1px 1px 0 #000,-1px -1px 0 #000
+
+/**
+  * type mixin
+  * name Emboss Effect(浮雕效果)
+  * @param color 颜色
+  */
+text-type7(color=#c)
+	color color
+	text-shadow -1px -1px #fff,
+		1px 1px #333
+
+/**
+  * type mixin
+  * name Blury Effect(模糊效果)
+  * @param color 模糊颜色
+  */
+text-type8(color=#f36)
+	color transparent
+	text-shadow 0 0 4px color
+
+/**
+  * type mixin
+  * name Background-clip:text(图片填充文字)
+  * @param color 描边颜色
+  */
+text-type9(src)
+	background img(src) no-repeat
+	background-clip text
+	-webkit-text-fill-color transparent
+
+/**
+  * type mixin
+  * name True Inset Effect(把inset效果和图片填充文字效果结合在一起，我们就可以制作出真正的插图文字效果)
+  * @param color 背景颜色
+  */
+text-type10(color=#6)
+	background color
+	background-clip text
+	color transparent
+	text-shadow 0 3px 3px rgba(255, 255, 255, .5)
+	

@@ -4,6 +4,9 @@ unless typeof(per) == 'function'
 /**
   * type mixin
   * name 网格布局
+  *
+  * description:
+  *		基本格式为: .row>(.col-number)
   */
 col()
 	.row
@@ -15,7 +18,7 @@ col()
 	
 /**
   * type mixin
-  * name 布局
+  * name 水平垂直布局
   * @param ele 包裹元素
   * @param childs 子元素
   * @param direction 水平还是垂直布局
@@ -34,6 +37,9 @@ layout1(ele, childs, direction = row)
   * @param content 内容元素, 默认为无, ele就为内容元素
   * @param header 头部, 形式如(ele height), 默认为null
   * @param footer 底部, 同上, 默认为null
+  *
+  * description:
+  *		基本格式为: ele>(header+content+footer)
   */
 layout2(ele, content = null, header = null, footer = null)
 	{ele}
@@ -81,6 +87,9 @@ layout2(ele, content = null, header = null, footer = null)
   * type mixin
   * name 等分多列布局
   * @param ele 布局元素, 默认为当前元素
+  *
+  * description:
+  *		基本格式为: .wrap>(ele(+ele)*)
   */
 layout3(ele = null)
 	if ele
@@ -93,19 +102,77 @@ layout3(ele = null)
 		
 /**
   * type mixin
-  * name 左中右布局
-  * @param left 左部元素
+  * name 中间自适应, 左(和右)固定
+  * @param _left 左部元素
   * @param content 内容元素
-  * @param right 右部元素, 默认为无
+  * @param _right 右部元素, 默认为无
+  *
+  * description:
+  *		基本格式为: .wrap>(left+right+content)
   */
-layout4(left, content, right = null)
+layout4(_left, content, _right = null)
 	&
 		@extend .clearfix
-	if left
-		{left}
+	if _left
+		{_left}
 			float left
-	if right
-		{right}
+	if _right
+		{_right}
 			float right
 	{content}
 		overflow hidden
+		
+/**
+  * type mixin
+  * name 中间自适应, 左(和右)固定
+  * @param content 内容元素 ele
+  * @param _left 左部元素 (ele, width)
+  * @param _right 右部元素, 默认为无  (ele, width)
+  *
+  * description:
+  *		基本格式为: .wrap>((content>contentContainer)+left+right)
+  */
+layout5(content, _left, _right = null)
+	&
+		overflow hidden
+	{content}
+		float left
+		width 100%
+	{content}Container
+		margin-left _left[1]
+		if _right
+			margin-right _right[1]
+	{_left[0]}
+		float left
+		margin-left -100%
+		width _left[1]
+	if _right
+		{_right[0]}
+			float left
+			margin-left -(_right[1])
+			width _right[1]
+		
+/**
+  * type mixin
+  * name 中间固定, 左右自适应
+  * @param content 内容元素 (ele, width
+  * @param _left 左部元素 ele
+  * @param _right 右部元素, ele
+  * @param lrele _left和_right包裹的元素, ele
+  *
+  * description:
+  *		基本格式为: .wrap>((_left>lrele)+(content)+(_right>lrele))
+  */
+layout6(content, _left, _right, lrele = '.inner')
+	&
+		overflow hidden
+	{_left},
+	{_right}
+		float left
+		width 50%
+		margin-left -(content[1] / 2 + 1)
+		{lrele}
+			margin-left (content[1] / 2 + 1)
+	{content[0]}
+		float left
+		width content[1]

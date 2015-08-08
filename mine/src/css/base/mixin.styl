@@ -38,25 +38,6 @@ media(width)
 		{block}
 
 /**
-  * type mixin
-  * name 元素居中
-  * @param xis 居中的轴，默认为x和y，可以用x或y来指定特定方向
-  * @param pos 定位方式，默认为absolute
-  */
-center(xis = 0, pos = absolute)
-	position pos
-	if xis == 'x'
-		left 50%
-		transform translate(-50%, 0)
-	else if xis == 'y'
-		top 50%
-		transform translate(0, -50%)
-	else
-		top 50%
-		left 50%
-		transform translate(-50%, -50%)
-
-/**
   * type function
   * name 相对单位rem
   * 默认返回1rem
@@ -176,6 +157,115 @@ yahei()
 songti()
 	font-family SimSun
 	
+/*-------------- 水平垂直居中 start -----------------*/
+
+/**
+  * type mixin
+  * name 元素居中
+  * @param xis 居中的轴，默认为x和y，可以用x或y来指定特定方向
+  * @param pos 定位方式，默认为absolute
+  */
+center(xis = 0, pos = absolute)
+	position pos
+	if xis == 'x'
+		left 50%
+		transform translate(-50%, 0)
+	else if xis == 'y'
+		top 50%
+		transform translate(0, -50%)
+	else
+		top 50%
+		left 50%
+		transform translate(-50%, -50%)
+
+
+/**
+  * type mixin
+  * name 垂直居中
+  * @param lh 高度
+  */
+center1(h)
+	line-height h
+
+/**
+  * type mixin
+  * name 水平垂直居中
+  * @param h 高度 垂直居中
+  * @param w 宽度 水平居中需要指定
+  */
+center2(h, w = null)
+	position absolute
+	if w
+		width w
+		left 50%
+		margin-left -(w / 2)
+	height h
+	top 50%
+	margin-top -(h / 2)
+
+/**
+  * type mixin
+  * name 垂直居中
+  * @param ele 元素
+  * description
+  *		基本格式 .wrap>ele
+  *		不支持IE6-7
+  */
+center3(ele)
+	display table
+	{ele}
+		display table-cell
+		vertical-align middle
+		text-align center
+
+/**
+  * type mixin
+  * name 水平垂直居中
+  * @param ele 元素
+  * @param ele1 ele的子元素
+  * description
+  *		基本格式 .wrap>ele
+  *		IE6-7下的格式为 .wrap>ele>ele1
+  */
+center4(ele, ele1)
+	if !@height || !@width
+		error('请为wrap指定宽度和高度！！！！')
+	display table
+	position relative
+	float left
+	{ele}
+		display table-cell
+		vertical-align middle
+		text-align center
+		*position absolute
+		*top 50%
+		*left 50%
+		{ele1}
+			*position relative
+			*top -50%
+			*left -50%
+
+/**
+  * type mixin
+  * name 垂直居中
+  * @param ele 元素
+  * @param h 高度
+  * @param ele1 空元素
+  * description
+  *		基本格式 .wrap>(ele1+ele)
+  */
+center5(ele, h, ele1)
+	{ele1}
+		float left
+		height 50%
+		margin-bottom -(h / 2)
+	{ele}
+		clear both
+		height h
+
+/*-------------- 水平垂直居中 end -----------------*/
+
+
 /*-------------- 数量查询 start -----------------*/
 
 /**
